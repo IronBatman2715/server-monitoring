@@ -23,11 +23,11 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
     restart: unless-stopped
 
-  node_exporter:
+  node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
     command:
@@ -35,9 +35,9 @@ services:
       - "--collector.processes"
       # - "--collector.systemd"
     pid: host
-    restart: unless-stopped
     volumes:
       - "/:/host:ro,rslave"
+    restart: unless-stopped
 
   # cadvisor:
   #   image: gcr.io/cadvisor/cadvisor:latest
